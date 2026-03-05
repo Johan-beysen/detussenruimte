@@ -31,9 +31,23 @@
   #   connect-src: + https://calendly.com
   Content-Security-Policy: default-src 'none'; script-src 'self'; script-src-attr 'none'; style-src 'self'; style-src-attr 'none'; font-src 'self'; img-src 'self'; media-src 'none'; connect-src 'self'; worker-src 'none'; manifest-src 'none'; frame-src 'none'; frame-ancestors 'none'; form-action 'self' https://api.netlify.com; base-uri 'self'; object-src 'none'; upgrade-insecure-requests
 
-# ── Cache: statische assets (fonts, css, js, images) ─────────────────────
-/assets/*
+# ── Cache: fonts & images (nooit gewijzigd, dus immutable) ───────────────
+/assets/fonts/*
   Cache-Control: public, max-age=31536000, immutable
+  Cross-Origin-Resource-Policy: same-origin
+
+/assets/Images/*
+  Cache-Control: public, max-age=31536000, immutable
+  Cross-Origin-Resource-Policy: same-origin
+
+# ── Cache: css & js (wijzigen bij deploys, geen immutable) ───────────────
+# Zolang er geen content-hashing is (Eleventy), altijd hervalideren.
+/assets/css/*
+  Cache-Control: no-cache, must-revalidate
+  Cross-Origin-Resource-Policy: same-origin
+
+/assets/js/*
+  Cache-Control: no-cache, must-revalidate
   Cross-Origin-Resource-Policy: same-origin
 
 # ── Cache: HTML pagina's ──────────────────────────────────────────────────
